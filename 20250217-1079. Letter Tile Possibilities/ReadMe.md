@@ -63,3 +63,25 @@ Actually, functional programing use recousive to replace loop almost everywhere 
   - Handling backtracking can be challenging and complicated
 
 For these algoirthms without requrements of backtracking state/varibles or clomplicated flow control requirement, two types of algoirthms should be interchangable without big effort.   
+
+
+
+## Some cases
+
+```python
+# implement recursive and interative algorithm for 1+2+3...n
+def recursive(n:int, total:int=0) -> int:
+    if(n==1):
+        return total+1
+    return recursive(n-1, total + n)
+
+def iterative(n:int, total:int=0) -> int:
+    while True:
+        if(n==1):
+            return total+1
+        n, total = n-1, total + n
+
+# print(recursive(10000)) # will overflow because python doesn't have tail recursion optimization
+print(iterative(10000))
+
+```
