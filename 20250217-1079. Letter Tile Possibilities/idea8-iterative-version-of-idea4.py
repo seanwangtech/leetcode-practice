@@ -8,7 +8,7 @@ class Solution:
     def numTilePossibilities(self, tiles: str) -> int:
         groupedTiles = {}
         for t in tiles:
-            groupedTiles[t] = groupedTiles[t]+1 if groupedTiles.get(t) is not None else 1
+            groupedTiles[t] = groupedTiles.get(t, 0) + 1
         count = 0
         def countPossibilites():
             nonlocal groupedTiles, count
@@ -16,7 +16,8 @@ class Solution:
             stack.append({'it':iter(groupedTiles.keys())}) # in idea 4, the iterator is save in call stack automatically, here we need to manually manage it.
             while len(stack) >0:
                 args = stack.pop()
-                if(args.get('k') is not None):
+                # Restore count if returning from a deeper level
+                if('k' in args):
                     # this is minic after function-call-break code. 
                     # in idea 4, there is one function call break the code, what if there is multiple function break? In this case, it would even more complicated flow control and status to 
                     # handle backtracking info and resume after break. Considering the nature difference between recursion and iterative way, although theoretically 
@@ -33,9 +34,11 @@ class Solution:
                         groupedTiles[k] -= 1
                         args['k'] = k
                         count += 1
-                        stack.append(args) # save the backtracking info 
+                        # Save state to backtrack later
+                        stack.append(args)
+                        # Explore deeper with a new iterator
                         stack.append({'it':iter(groupedTiles.keys())}) # put another item to stack (minic fuction call)
-                        break
+                        break # Prioritize depth-first exploration
         countPossibilites()
         return count
 
