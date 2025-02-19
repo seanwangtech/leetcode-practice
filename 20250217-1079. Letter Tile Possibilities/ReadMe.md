@@ -201,7 +201,10 @@ def iterative(n:int) -> int:
             if(n==1):
                 rtn = 1
                 continue
+            # mimic function call
+            # push back the current frame with backtracking info
             stack.append((1, n))
+            # push the frame for recusive call
             stack.append((0, n-1))
             continue
         
