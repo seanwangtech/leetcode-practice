@@ -68,12 +68,19 @@ For these algoirthms without requrements of backtracking state/varibles or clomp
 
 ## Some cases
 
+
+in the case of tail recursion (No need backtracking), the *return fun(update parameter)* is equivalent to - *update parameter and continue*.  
+The return without recursion is equivalent to break the loop and return the result after the loop, or return directly from the loop. 
+
 ```python
 # implement recursive and interative algorithm for 1+2+3...n
 def recursive(n:int, total:int=0) -> int:
     if(n==1):
         return total+1
-    return recursive(n-1, total + n)
+    if(n%3 == 0):
+      return recursive(n-3, total + n)
+    else:
+      return recursive(n-1, total + n)
 
 def iterative(n:int, total:int=0) -> int:
     while True:
@@ -81,7 +88,45 @@ def iterative(n:int, total:int=0) -> int:
             return total+1
         n, total = n-1, total + n
 
-# print(recursive(10000)) # will overflow because python doesn't have tail recursion optimization
-print(iterative(10000))
+def iterative2(n:int, total:int=0) -> int:
+    while True:
+        if(n==1):
+            total = total+1
+            break
+        n, total = n-1, total + n
+        continue # can be ignored at the end of each loop
+    return total
 
+print(recursive(1000)) # will overflow because python doesn't have tail recursion optimization
+# print(iterative(1000))
+
+```
+
+
+```python
+
+# in the case of tail recursion, the return fun(update parameter) is equivalent to - update parameter and continue.  
+
+def recursive(n:int, total:int=0) -> int:
+    if(n==1):
+        return total+1
+    elif(n<1):
+        return total
+    if(n%3 == 0):
+        return recursive(n-2, total + n)
+    return recursive(n-1, total + n)
+
+def iterative(n:int, total:int=0) -> int:
+    while True:
+        if(n==1):
+            return total+1
+        if(n%3 == 0):
+            n, total = n-2, total + n
+            continue
+        n, total = n-1, total + n
+        continue # option at the end of loop
+
+# 10 + 9 + 7 + 6 + 4 + 3 + 1 -> 40
+print(recursive(10)) # will overflow because python doesn't have tail recursion optimization
+print(iterative(10))
 ```
