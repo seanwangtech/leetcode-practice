@@ -66,7 +66,7 @@ For these algoirthms without requrements of backtracking state/varibles or clomp
 
 
 
-## Some cases: trail recursion (No need backtracking)
+## Some cases: tail recursion (No need backtracking)
 
 
 in the case of tail recursion (No need backtracking), the *return fun(update parameter)* is equivalent to - *update parameter and continue*.  
@@ -147,10 +147,10 @@ def recursive(n:int) -> int:
     if(n==1):
         return 1
     
-    rn = recursive(n-1)
+    rtn = recursive(n-1)
     # backtracking
-    rn = rn + n # update rn
-    return rn
+    rtn = rtn + n # update rtn
+    return rtn
 
 def iterative(n:int) -> int:
     stack = [n]
@@ -159,7 +159,7 @@ def iterative(n:int) -> int:
         n = stack.pop()
         if codeSession == 0:
             if(n==1):
-                rn = 1
+                rtn = 1
                 codeSession = 1
             else:
                 stack.append(n)
@@ -168,9 +168,9 @@ def iterative(n:int) -> int:
         
         elif codeSession == 1: 
             # backtracking
-            rn = rn + n  
+            rtn = rtn + n  
             continue
-    return rn
+    return rtn
             
 print(recursive(10)) 
 print(iterative(10))
@@ -187,10 +187,10 @@ def recursive(n:int) -> int:
     
     # return recursive(n-1) +n
     # the return can be break down in to update return value every frame
-    rn = recursive(n-1)
-    rn = rn + n # update rn
+    rtn = recursive(n-1)
+    rtn = rtn + n # update rtn
     print(f'After call: n={n}')
-    return rn
+    return rtn
 
 def iterative(n:int) -> int:
     stack = [n]
@@ -200,7 +200,7 @@ def iterative(n:int) -> int:
         if codeSession == 0:
             print(f'before call: n={n}')
             if(n==1):
-                rn = 1
+                rtn = 1
                 codeSession = 1
             else:
                 stack.append(n)
@@ -208,10 +208,10 @@ def iterative(n:int) -> int:
                 continue
         
         elif codeSession == 1: # backtracking after break
-            rn = rn + n  # update rn every iteration after backtracking           
+            rtn = rtn + n  # update rtn every iteration after backtracking           
             print(f'After call: n={n}')
             continue
-    return rn
+    return rtn
             
 
 print(recursive(10))
@@ -229,7 +229,7 @@ def iterative(n:int) -> int:
         n = stack[-1]
         if codeSession == 0:
             if(n==1):
-                rn = 1
+                rtn = 1
                 codeSession = 1
                 stack.pop()
                 continue
@@ -239,10 +239,10 @@ def iterative(n:int) -> int:
         
         elif codeSession == 1: 
             # backtracking
-            rn = rn + n  
+            rtn = rtn + n  
             stack.pop()
             continue
-    return rn
+    return rtn
             
 print(iterative(10))
 ```
