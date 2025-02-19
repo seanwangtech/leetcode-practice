@@ -142,6 +142,8 @@ To rewrite the recursion (needing backtracking) with a loop, the key point is
 
 **Clean code:**
 
+Note: some continue is not necesary, here keep it for highlight of start next loop to mimic resturn of function or start a new call. 
+
 ```python
 def recursive(n:int) -> int:
     if(n==1):
@@ -159,10 +161,10 @@ def iterative(n:int) -> int:
         if codeSegment == 0:
             if(n==1):
                 rtn = 1
-            else:
-                stack.append((1, n))
-                stack.append((0, n-1))
                 continue
+            stack.append((1, n))
+            stack.append((0, n-1))
+            continue
         
         elif codeSegment == 1: 
             # backtracking
@@ -198,10 +200,10 @@ def iterative(n:int) -> int:
             print(f'before call: n={n}')
             if(n==1):
                 rtn = 1
-            else:
-                stack.append((1, n))
-                stack.append((0, n-1))
                 continue
+            stack.append((1, n))
+            stack.append((0, n-1))
+            continue
         
         elif codeSegment == 1: # backtracking after break
             rtn = rtn + n  # update rtn every iteration after backtracking           
@@ -228,9 +230,8 @@ def iterative(n:int) -> int:
                 rtn = 1
                 stack.pop()
                 continue
-            else:
-                stack.append([0,n-1])
-                continue
+            stack.append([0,n-1])
+            continue
         
         elif codeSegment == 1: 
             # backtracking
