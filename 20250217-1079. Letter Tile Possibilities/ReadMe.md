@@ -66,7 +66,7 @@ For these algoirthms without requrements of backtracking state/varibles or clomp
 
 
 
-## Some cases
+## Some cases: trail recursion (No need backtracking)
 
 
 in the case of tail recursion (No need backtracking), the *return fun(update parameter)* is equivalent to - *update parameter and continue*.  
@@ -129,4 +129,92 @@ def iterative(n:int, total:int=0) -> int:
 # 10 + 9 + 7 + 6 + 4 + 3 + 1 -> 40
 print(recursive(10)) # will overflow because python doesn't have tail recursion optimization
 print(iterative(10))
+```
+
+## The case requiring backtracking
+
+To rewrite the recursion (needing backtracking) with a loop, the key point is
+1. use a stack to manage backtracking call, parameters and localvariables
+2. Manually pop the stack when start a loop
+3. manually recover the parameters and localvariables from popped data
+4. Manually push the stack when minic call to a function
+5. Manually control the flow after function by using a codeSession variable and split the code into execution sessions. 
+
+**Clean code:**
+
+```python
+def recursive(n:int) -> int:
+    if(n==1):
+        return 1
+    
+    rn = recursive(n-1)
+    # backtracking
+    rn = rn + n # update rn
+    return rn
+
+def iterative(n:int) -> int:
+    stack = [n]
+    codeSession = 0
+    while len(stack)>0:
+        n = stack.pop()
+        if codeSession == 0:
+            if(n==1):
+                rn = 1
+                codeSession = 1
+            else:
+                stack.append(n)
+                stack.append(n-1)
+                continue
+        
+        elif codeSession == 1: 
+            # backtracking
+            rn = rn + n  
+            continue
+    return rn
+            
+print(recursive(10)) 
+print(iterative(10))
+```
+
+
+**Code with comment in detail.**
+```python
+def recursive(n:int) -> int:
+    
+    print(f'before call: n={n}')
+    if(n==1):
+        return 1
+    
+    # return recursive(n-1) +n
+    # the return can be break down in to update return value every frame
+    rn = recursive(n-1)
+    rn = rn + n # update rn
+    print(f'After call: n={n}')
+    return rn
+
+def iterative(n:int) -> int:
+    stack = [n]
+    codeSession = 0
+    while len(stack)>0:
+        n = stack.pop()
+        if codeSession == 0:
+            print(f'before call: n={n}')
+            if(n==1):
+                rn = 1
+                codeSession = 1
+            else:
+                stack.append(n)
+                stack.append(n-1)
+                continue
+        
+        elif codeSession == 1: # backtracking after break
+            rn = rn + n  # update rn every iteration after backtracking           
+            print(f'After call: n={n}')
+            continue
+    return rn
+            
+
+print(recursive(10))
+print(iterative(10))
+
 ```
