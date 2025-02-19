@@ -248,7 +248,7 @@ print(iterative(10))
 
 ## So, what is key relation between iterative and recursive algorithms
 
-A recursion is equivalent to loops with backtracking of **parameters**, **localvariables** and **code excution** positions. The iterative loop body is coresponding to recursive function body. The major difference is that the loop doesn't naturally comes with backtracking, while the recursive function body does. The interative algorithm naturally loops over its loop body, while the recursive function need to call itself to loop the function body. The recursive function parameters correspond updated varables that may record status, results or termination control variables. The return of a function can be rewritten as function paramters passed by reference. 
+A recursion is equivalent to loops with explicitly management of **parameters**, **localvariables** and **code excution** positions. The iterative loop body is coresponding to recursive function body. The major difference is that the recursive function naturally/implicitly comes with state mangement (parameters, local variables, and execution position) that simplifies design of backtracking algorithms, while the loop body doesn't. The interative algorithm naturally loops over its loop body, while the recursive function need to call itself to loop the function body. The recursive function parameters correspond updated varables that may record status, results or termination control variables. The return of a function can be rewritten as function paramters passed by reference. 
 
-Due to feature of backtracking, the recursion is ideal for depth-first-search (DFS) and flexible early termination of the search. 
+Due to its simplicity for backtracking, the recursion is ideal for depth-first-search (DFS) and flexible early termination of the search. 
 
