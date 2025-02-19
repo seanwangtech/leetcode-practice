@@ -218,3 +218,31 @@ print(recursive(10))
 print(iterative(10))
 
 ```
+
+People may manage the stack pop() at end of each loop when no new calls. This would avoid pop() and push() again into stack when mimicking recursion call. However, pop() at end of each loop logically clear but people can forget pop() at the end of loop. 
+```python
+def iterative(n:int) -> int:
+    stack = [n]
+    codeSession = 0
+    while len(stack)>0:
+        # recover the state
+        n = stack[-1]
+        if codeSession == 0:
+            if(n==1):
+                rn = 1
+                codeSession = 1
+                stack.pop()
+                continue
+            else:
+                stack.append(n-1)
+                continue
+        
+        elif codeSession == 1: 
+            # backtracking
+            rn = rn + n  
+            stack.pop()
+            continue
+    return rn
+            
+print(iterative(10))
+```
