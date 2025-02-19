@@ -134,11 +134,11 @@ print(iterative(10))
 ## The case requiring backtracking
 
 To rewrite the recursion (needing backtracking) with a loop, the key point is
-1. use a stack to manage backtracking call, parameters, localvariables and code sessions
+1. use a stack to manage backtracking call, parameters, localvariables and code segments
 2. Manually pop the stack when start a loop
-3. manually recover the parameters, localvariables and code sessions from popped data
+3. manually recover the parameters, localvariables and code segments from popped data
 4. Manually push the stack when minic call to a function
-5. Manually split the code into execution sessions. Use if branch control to chose correct code session to execute for flow backtacking
+5. Manually split the code into execution segments. Use if branch control to choose the correct code segment to execute for flow backtacking
 
 **Clean code:**
 
@@ -153,10 +153,10 @@ def recursive(n:int) -> int:
     return rtn
 
 def iterative(n:int) -> int:
-    stack = [(0,n)] # [(codeSession, n parameter)]
+    stack = [(0,n)] # [(codeSegment, n parameter)]
     while len(stack)>0:
-        codeSession, n = stack.pop()
-        if codeSession == 0:
+        codeSegment, n = stack.pop()
+        if codeSegment == 0:
             if(n==1):
                 rtn = 1
             else:
@@ -164,7 +164,7 @@ def iterative(n:int) -> int:
                 stack.append((0, n-1))
                 continue
         
-        elif codeSession == 1: 
+        elif codeSegment == 1: 
             # backtracking
             rtn = rtn + n  
             continue
@@ -191,10 +191,10 @@ def recursive(n:int) -> int:
     return rtn
 
 def iterative(n:int) -> int:
-    stack = [(0,n)] # [(codeSession, n parameter)]
+    stack = [(0,n)] # [(codeSegment, n parameter)]
     while len(stack)>0:
-        codeSession, n = stack.pop()
-        if codeSession == 0:
+        codeSegment, n = stack.pop()
+        if codeSegment == 0:
             print(f'before call: n={n}')
             if(n==1):
                 rtn = 1
@@ -203,7 +203,7 @@ def iterative(n:int) -> int:
                 stack.append((0, n-1))
                 continue
         
-        elif codeSession == 1: # backtracking after break
+        elif codeSegment == 1: # backtracking after break
             rtn = rtn + n  # update rtn every iteration after backtracking           
             print(f'After call: n={n}')
             continue
@@ -218,11 +218,11 @@ print(iterative(10))
 People may manage the stack pop() at end of each loop when no new calls. This would avoid pop() and push() again into stack when mimicking recursion call. However, pop() at end of each loop logically clear but people can forget pop() at the end of loop. 
 ```python
 def iterative(n:int) -> int:
-    stack = [[0,n]] # [(codeSession, n parameter)]
+    stack = [[0,n]] # [(codeSegment, n parameter)]
     while len(stack)>0:
         # recover the state
-        codeSession, n = stack[-1] # record progress as codeSession 
-        if codeSession == 0:
+        codeSegment, n = stack[-1] # record progress as codeSegment 
+        if codeSegment == 0:
             stack[-1][0] = 1
             if(n==1):
                 rtn = 1
@@ -232,7 +232,7 @@ def iterative(n:int) -> int:
                 stack.append([0,n-1])
                 continue
         
-        elif codeSession == 1: 
+        elif codeSegment == 1: 
             # backtracking
             rtn = rtn + n  
             stack.pop()
