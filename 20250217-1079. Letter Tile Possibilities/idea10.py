@@ -11,16 +11,21 @@ class Solution:
         count = 0
         def dfs(index=0):
             nonlocal tilesAbs, count
-            if(index == len(tilesAbs)):
+            if(index == len(tilesAbs) or tilesAbs[index] == 0):
+                return
+            # to calc combinations, don't need to iter from 0, start from index instead. 
+            for i in range(index, len(tilesAbs)):
+                tilesAbs[i] -= 1
+                tilesAbsChosen[i]+=1
                 chosen = self.remove0Value(tilesAbsChosen)
                 if(len(chosen)>0):
                     count += self.countPermutations(chosen)
-                return
-            # to calc combinations
-            for i in range(0, tilesAbs[index]+1):
-                tilesAbsChosen[index] = i
-                dfs(index+1)
-                tilesAbsChosen[index] =0
+                if(tilesAbs[i] >0):
+                    dfs(i)
+                else:
+                    dfs(i +1)
+                tilesAbs[i] += 1
+                tilesAbsChosen[i]-=1
         dfs()
         return(count)
     def remove0Value(self, arr):
