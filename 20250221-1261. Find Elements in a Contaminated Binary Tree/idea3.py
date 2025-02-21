@@ -9,36 +9,30 @@ class TreeNode:
         self.left = left
         self.right = right
 
-# time complexity: init O(n), find O(n)
-# space complexity: init O(1), find O(1)
+# time complexity: init O(n), find O(1)
+# space complexity: init O(n), find O(1)
 
 class FindElements:
 
     def __init__(self, root: Optional[TreeNode]):
+        self.hashSet = set()
+        self.root = root
+        self.hashSet.add(0)
         def dfs(node):
             if(node.left is not None):
                 node.left.val = node.val*2 + 1
+                self.hashSet.add(node.left.val)
                 dfs(node.left)
             if(node.right is not None):
                 node.right.val = node.val*2 + 2
+                self.hashSet.add(node.right.val)
                 dfs(node.right)
         root.val = 0
         dfs(root)
-        self.root = root
         
 
     def find(self, target: int) -> bool:
-        def dfs(node) -> bool:
-            if (node is None):
-                return False
-            if node.val == target:
-                return True
-            if dfs(node.left):
-                return True
-            if dfs(node.right):
-                return True
-            return False
-        return dfs(self.root)
+        return target in self.hashSet
 
 def constuctFromArray(arr:List[int]):
     # [-1,None,-1,-1,None,-1]
