@@ -21,13 +21,13 @@ class Solution:
                 return None
             
             tDepth, val = dv[index]
-            tDepth, val = dv[index]
-            node = None
-            if depth == tDepth:
-                node = TreeNode(val)
-                index += 1
-                node.left = dfs(depth + 1)
-                node.right = dfs(depth + 1)
+            if(depth != tDepth):
+                return None
+            
+            node = TreeNode(val)
+            index += 1
+            node.left = dfs(depth + 1)
+            node.right = dfs(depth + 1)
             return node
         return dfs(0)
 
