@@ -5,28 +5,25 @@ class Solution:
     def mostProfitablePath(self, edges: List[List[int]], bob: int, amount: List[int]) -> int:
         edgeDict = self.creatEdgeDict(edges)
         bobPath = self.getBobPath(edgeDict, bob)   #O(n)
-        bobPathHistory = set()
         possibleIncomes = []
         def helper(curNode = 0, preNode = -1, step = 0, income = 0): # time O(n)
-            nonlocal bobPath, possibleIncomes, bobPathHistory
+            nonlocal bobPath, possibleIncomes
             adjacents = edgeDict.get(curNode, [])
             curIncome = amount[curNode]
-            if(step<len(bobPath)) and (bobPath[step] == curNode):
-                curIncome = curIncome // 2
-            elif(curNode in bobPathHistory):    #O(1)
-                curIncome = 0
+            if curNode in bobPath:
+                bobStep = bobPath[curNode]
+                if bobStep == step:
+                    curIncome = curIncome // 2
+                elif bobStep  < step:    #O(1)
+                    curIncome = 0
             income += curIncome
             if(curNode !=0 and len(adjacents)<=1):
                 # leaf nodes
                 possibleIncomes.append(income)
                 return
-            if(step<len(bobPath)):
-                bobPathHistory.add(bobPath[step])
             for node in adjacents:
                 if(node != preNode):
                     helper(node, curNode, step+1, income)
-            if(step<len(bobPath)):
-                bobPathHistory.remove(bobPath[step])
         helper()
         return max(possibleIncomes)
 
@@ -39,17 +36,17 @@ class Solution:
 
     def getBobPath(self, edgeDict:Dict, bob:int):
         # time complexity O(n), int the worest case, all of nodes was access, and perform getAdjancet once per node. 
-        ret = []
-        def helper(curNode, preNode = -1) -> bool:
-            ret.append(curNode)
+        ret = {}
+        def helper(curNode, preNode = -1, step=0) -> bool:
+            ret[curNode] = step
             if(curNode == 0):
                 return True
             adjacents = edgeDict.get(curNode, [])
             for node in adjacents:
                 if(node != preNode):
-                    if helper(node, curNode):
+                    if helper(node, curNode, step + 1):
                         return True
-            ret.pop()
+            ret.pop(curNode)
             return False
         helper(bob)
         return ret
