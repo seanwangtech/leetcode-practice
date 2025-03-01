@@ -21,7 +21,6 @@ class Solution:
                 return None
             
             tDepth, val = dv[index]
-            tDepth, val = dv[index]
             node = None
             if depth == tDepth:
                 node = TreeNode(val)
