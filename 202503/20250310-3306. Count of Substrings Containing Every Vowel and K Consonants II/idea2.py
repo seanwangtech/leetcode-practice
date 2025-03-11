@@ -50,6 +50,7 @@ class Solution:
     
 s = Solution()
 print(s.countOfSubstrings(word = "aeiou", k = 0))
-# print(s.countOfSubstrings(word = "ieaouqqieaouqq", k = 1))
-# print(s.countOfSubstrings(word = "iqeaouqi", k = 2))
+print(s.countOfSubstrings(word = "ieaouqqieaouqq", k = 1))
+print(s.countOfSubstrings(word = "iqeaouqi", k = 2))
 print(s.countOfSubstrings(word = "oocaeui", k = 0))
+print(s.countOfSubstrings(word = "aoeeaeiu", k = 0))
