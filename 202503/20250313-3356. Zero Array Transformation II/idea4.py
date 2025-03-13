@@ -1,7 +1,7 @@
 from typing import *
 
 # time complexity: O(N+M)
-# space complexity: O(M)
+# space complexity: O(N)
 class Solution:
     def minZeroArray(self, nums: List[int], queries: List[List[int]]) -> int:
         N = len(nums)
