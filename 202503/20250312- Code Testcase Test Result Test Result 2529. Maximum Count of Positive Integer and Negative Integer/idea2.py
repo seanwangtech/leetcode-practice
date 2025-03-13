@@ -1,6 +1,7 @@
+from typing import *
+
 #time complexity O(log(n))
 #space complexity O(1)
-from typing import *
 class Solution:
     def maximumCount(self, nums: List[int]) -> int:
         # binary search

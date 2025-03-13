@@ -11,27 +11,23 @@ class Solution:
     def lowerbound(self, nums):
         # binary search
         li,hi = 0, len(nums)-1
-        index = len(nums)
         while li<=hi:
             mid = (li+hi)//2
             if nums[mid] < 0:
                 li = mid +1
             else:
                 hi = mid -1
-                index = mid
-        return index
+        return li
     def upperbound(self, nums):
         # binary search
         li,hi = 0, len(nums)-1
-        index = len(nums)
         while li<=hi:
             mid = (li+hi)//2
             if nums[mid] <= 0:
                 li = mid +1
             else:
                 hi = mid -1
-                index = mid
-        return index
+        return li
     
 s = Solution()
 print(s.maximumCount([-2,-1,-1,1,2,3]))
