@@ -6,18 +6,18 @@ class Solution:
     def minZeroArray(self, nums: List[int], queries: List[List[int]]) -> int:
         N = len(nums)
         M = len(queries)
-        maxDiff = [0]*(N+1)
+        diffs = [0]*(N+1)
         curMax = 0
         steps = 0
         for i in range(N): #O(N)
             num = nums[i]
-            curMax += maxDiff[i]
+            curMax += diffs[i]
             while num - curMax>0: 
                 if(steps == M):
                     return -1
                 q = queries[steps]
-                maxDiff[q[0]] += q[2]
-                maxDiff[q[1]+1] -= q[2]
+                diffs[q[0]] += q[2]
+                diffs[q[1]+1] -= q[2]
                 if(i>= q[0] and i<= q[1]):
                     curMax += q[2]
                 steps += 1
