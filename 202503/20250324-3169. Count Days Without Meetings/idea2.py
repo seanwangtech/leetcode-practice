@@ -2,17 +2,17 @@ from typing import *
 
 class Solution:
     def countDays(self, days: int, meetings: List[List[int]]) -> int:
-        presumDict = {days+1:0}
+        diffDict = {days+1:0}
         for start, end in meetings:
-            presumDict[start] = presumDict.get(start, 0) + 1
-            presumDict[end+1] =presumDict.get(end+1, 0) - 1
+            diffDict[start] = diffDict.get(start, 0) + 1
+            diffDict[end+1] =diffDict.get(end+1, 0) - 1
         preIndex = 1
         presum = 0
         count = 0
-        for i in sorted(presumDict.keys()):
+        for i in sorted(diffDict.keys()):
             if presum == 0:
                 count += i-preIndex
-            presum += presumDict[i]
+            presum += diffDict[i]
             preIndex = i
                 
         return count
