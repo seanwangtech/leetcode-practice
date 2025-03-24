@@ -33,8 +33,6 @@ class Solution:
                 componts.pop(b_parent,-1)
         for a,b in edges:
             union(a,b)
-        # print(componts)
-        # print(parents)
         complete_connected_components = 0
         for n, edge in componts.values():
             if(edge == n*(n-1)/2):
