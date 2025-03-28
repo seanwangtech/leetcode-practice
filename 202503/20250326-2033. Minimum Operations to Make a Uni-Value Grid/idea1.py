@@ -32,7 +32,6 @@ class Solution:
                 count2 = self.countOp(grid, x, avg)
             return count1
         
-        return min(count)
     def countOp(self, grid, x, target):
         count = 0
         for row in grid:
