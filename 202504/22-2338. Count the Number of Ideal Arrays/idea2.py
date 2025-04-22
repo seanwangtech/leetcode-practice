@@ -15,6 +15,8 @@ class Solution:
         # print(freq)
         ret = 0
         for i, f in enumerate(freq):
+            if f ==0:
+                break
             ret += f*self.combination(n-1, i)
             ret %=MOD
         return ret
@@ -26,9 +28,7 @@ class Solution:
             ret //= i
         return ret
 
-            
-
 
 s = Solution()
 print(s.idealArrays(n = 2, maxValue = 5))
-print(s.idealArrays(n = 5, maxValue = 3))
+print(s.idealArrays(n = 50, maxValue = 10000))
